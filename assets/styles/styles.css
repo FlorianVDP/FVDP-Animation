@@ -15,6 +15,7 @@ html body header {
   justify-content: space-between;
   padding: 1em 2em;
   z-index: 100;
+  display: none;
 }
 html body header .logo {
   width: 200px;
@@ -44,6 +45,17 @@ html body header nav ul li.contact a {
 html body header nav ul li.contact a:hover, html body header nav ul li.contact a:focus {
   border: 2px solid #f1c40f;
 }
+html body div#intersector {
+  position: fixed;
+  right: 0;
+  bottom: 50vh;
+  left: 0;
+  margin: auto;
+  width: 100%;
+  height: 2px;
+  background-color: red;
+  display: none;
+}
 html body main section {
   height: 100vh;
   background-color: #000000;
@@ -53,6 +65,52 @@ html body main section .wrapper-section {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+}
+html body main section#intro {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 9999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+html body main section#intro.active {
+  display: none;
+}
+html body main section#intro .wrapper-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4em;
+  position: relative;
+}
+html body main section#intro .wrapper-section #close {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+  color: #ffffff;
+  font-size: 2em;
+  transition: all ease-in 150ms;
+  cursor: pointer;
+}
+html body main section#intro .wrapper-section #close:hover {
+  color: #f1c40f;
+}
+html body main section#intro .wrapper-section img {
+  height: 100px;
+  object-fit: contain;
+}
+html body main section#intro .wrapper-section h1 {
+  color: #ffffff;
+  font-size: 2em;
 }
 html body main section#heading {
   background: linear-gradient(0deg, #2c3e50 0%, black 100%);
@@ -69,11 +127,34 @@ html body main section#heading .wrapper-section {
   justify-content: center;
   padding-top: 25vh;
 }
+html body main section#heading .wrapper-section img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
 html body main section#heading .wrapper-section svg#yeuxChat {
   max-width: 600px;
+  animation: 10s linear 0s none normal appear1;
 }
-html body main section#heading .wrapper-section svg#yeuxChat .st0 {
+@keyframes appear1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+html body main section#heading .wrapper-section svg#yeuxChat #fond_gauche, html body main section#heading .wrapper-section svg#yeuxChat #fond_droit {
   fill: #f1c40f;
+}
+html body main section#heading .wrapper-section svg#yeuxChat #retine_gauche, html body main section#heading .wrapper-section svg#yeuxChat #retine_droite {
+  fill: #000000;
 }
 html body main section#heading .wrapper-section svg.city {
   position: absolute;
@@ -98,52 +179,141 @@ html body main section#heading .wrapper-section .lumiere {
   background: #f1c40f;
   display: block;
   width: 100%;
-  height: 10px;
   z-index: 25;
   border-radius: 100px;
   box-shadow: 0px 0px 60px 180px #f1c40f;
+  animation: 10s linear 1s infinite alternate brille;
 }
-html body main section#description div.wrapper-section {
+@keyframes brille {
+  0% {
+    height: 0;
+  }
+  10% {
+    height: 12px;
+  }
+  25% {
+    height: 24px;
+  }
+  50% {
+    height: 10px;
+  }
+  75% {
+    height: 24px;
+  }
+  100% {
+    height: 5px;
+  }
+}
+html body main section.description {
+  height: 150vh;
+}
+html body main section.description div.wrapper-section {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
-html body main section#description div.wrapper-section p {
+html body main section.description div.wrapper-section p.texte-appear {
+  opacity: 0;
   color: #ffffff;
   font-size: 3em;
+  transition: all ease-in 300ms;
+  transform: translateY(10px);
+}
+html body main section.description div.wrapper-section p.texte-appear.active {
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0px);
 }
 html body main section#caracteristiques {
   padding: 2em 0;
   box-sizing: border-box;
-  background: linear-gradient(0deg, #2c3e50 0%, black 100%);
+  background-color: transparent;
+  position: relative;
+  height: 100vh;
+  background-image: url("../images/bg-22.svg");
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+html body main section#caracteristiques svg#fond {
+  position: absolute;
+  top: 0;
+  right: -5%;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: initial;
+}
+html body main section#caracteristiques svg#fond #light {
+  animation: 5s linear 0ms infinite alternate appear4;
+}
+@keyframes appear4 {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.6;
+  }
+  45% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0;
+  }
+  65% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 html body main section#caracteristiques div.wrapper-section {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1em;
 }
 html body main section#caracteristiques div.wrapper-section .texte {
-  flex-basis: 40%;
-  font-size: 2em;
+  flex-basis: 500px;
+  font-size: 1.5em;
 }
 html body main section#caracteristiques div.wrapper-section .wrapper-image {
-  flex-basis: 60%;
-  height: 600px;
-  background-color: #ffffff;
-  clip-path: polygon(34% 0, 86% 0, 92% 48%, 89% 91%, 14% 97%, 0 80%, 19% 44%);
+  flex-basis: 600px;
+  height: 500px;
 }
 html body main section#caracteristiques div.wrapper-section .wrapper-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  z-index: 99;
 }
 html body main section#produits {
   background: linear-gradient(180deg, #2c3e50 0%, black 100%);
 }
 html body main section#produits div.wrapper-section {
   display: flex;
+  flex-wrap: wrap;
+}
+html body main section#produits div.wrapper-section p {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  margin: 1em 0;
 }
 html body main section#produits div.wrapper-section article {
   flex-basis: 33%;
@@ -151,6 +321,17 @@ html body main section#produits div.wrapper-section article {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+html body main section#produits div.wrapper-section article img {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+}
+html body main section#produits div.wrapper-section article a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1em;
+  margin-top: 1em;
 }
 html body main section#contact div.wrapper-section {
   display: flex;
